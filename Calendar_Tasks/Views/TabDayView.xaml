@@ -1,0 +1,291 @@
+﻿<UserControl x:Class="Calendar_Tasks.Views.TabDayView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Calendar_Tasks.Views"
+             xmlns:calendar="clr-namespace:Calendar_Tasks"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="800">
+    <UserControl.Resources>
+        <DataTemplate x:Key="TaskItem" DataType="{x:Type calendar:TaskModel}">
+            <Grid Background="DarkGray">
+                <Expander Grid.ColumnSpan="3" FlowDirection="RightToLeft" HorizontalAlignment="Stretch" Padding="3 8 0 0" BorderThickness="1">
+                    <!--Expander content-->
+                    <TextBlock Text="{Binding Content}" 
+                               FlowDirection="LeftToRight"
+                               FontFamily="Arial" FontSize="14" Margin="3"/>
+                </Expander>
+                <!--Expander header-->
+                <Grid HorizontalAlignment="{Binding HorizontalAlignment, RelativeSource={RelativeSource AncestorType=ContentPresenter}, Mode=OneWayToSource}" FlowDirection="LeftToRight" Margin="5 5 30 5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="15"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" Text="{Binding Title}" 
+                                       FontFamily="arial" FontSize="16" FontWeight="Bold" 
+                                       VerticalAlignment="Center" >
+                    </TextBlock>
+                    <Rectangle Grid.Column="1" Width="2" Height="15" Fill="DimGray"></Rectangle>
+                    <TextBlock Grid.Column="2" 
+                                       FontFamily="Arial" FontSize="16"
+                                       VerticalAlignment="Center">
+                                <Run Text="{Binding HourStart, StringFormat={}{0:d2}}"></Run><Run Text=":"/><Run Text="{Binding MinuteStart, StringFormat={}{0:D2}}"></Run>
+                                <Run Text="-"/>
+                                <Run Text="{Binding HourEnd, StringFormat={}{0:D2}}"></Run><Run Text=":"/><Run Text="{Binding MinuteEnd, StringFormat={}{0:D2}}"/>
+                    </TextBlock>
+                    <!--START delete button-->
+                    <StackPanel Grid.Column="3" Orientation="Horizontal" FlowDirection="RightToLeft" >
+                        <Button HorizontalAlignment="Right" VerticalAlignment="Center" Padding="2" Tag="{Binding TaskID}" Click="BtnDeleteTask_Click">
+                            &#128465;
+                            <Button.Style>
+                                <Style TargetType="{x:Type Button}">
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="{x:Type Button}">
+                                                <Border Background="{TemplateBinding Background}" BorderThickness="1" BorderBrush="Black" CornerRadius="5">
+                                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5" TextBlock.Foreground="{TemplateBinding Foreground}"/>
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                    <Setter Property="Background" Value="DodgerBlue"/>
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="true">
+                                            <Setter Property="Background" Value="SkyBlue"/>
+                                            <Setter Property="Foreground" Value="Gray"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                        </Button>
+                        <Button HorizontalAlignment="Right" VerticalAlignment="Center" Padding="2" Tag="{Binding TaskID}" Click="BtnUpdateTask_Click" Margin="5 0">
+                            &#9998;
+                            <Button.Style>
+                                <Style TargetType="{x:Type Button}">
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="{x:Type Button}">
+                                                <Border Background="{TemplateBinding Background}" BorderThickness="1" BorderBrush="Black" CornerRadius="5">
+                                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5" TextBlock.Foreground="{TemplateBinding Foreground}"/>
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                    <Setter Property="Background" Value="DodgerBlue"/>
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="true">
+                                            <Setter Property="Background" Value="SkyBlue"/>
+                                            <Setter Property="Foreground" Value="Gray"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                        </Button>
+                    </StackPanel>
+                    <!--END delete button-->
+                </Grid>
+            </Grid>
+        </DataTemplate>
+
+        <Style x:Key="lblBadge" TargetType="{x:Type Label}">
+            <Setter Property="FontFamily" Value="Arial"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="AliceBlue"/>
+            <Setter Property="Width" Value="30"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="Margin" Value="5 5 0 5"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Label}">
+                        <Border BorderBrush="{TemplateBinding BorderBrush}" 
+                                BorderThickness="{TemplateBinding BorderThickness}" 
+                                Background="{TemplateBinding Background}" 
+                                Padding="{TemplateBinding Padding}" 
+                                SnapsToDevicePixels="true" 
+                                CornerRadius="15">
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="lblTasksHeader" TargetType="{x:Type Label}">
+            <Setter Property="FontFamily" Value="Arial"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="FontSize" Value="24"/>
+            <Setter Property="Margin" Value="0 5 5 5"/>
+            <Setter Property="Foreground" Value="AliceBlue"/>
+        </Style>
+
+        <Style x:Key="stackPanelTasksHeader" TargetType="{x:Type StackPanel}">
+            <Setter Property="Background" Value="LightSlateGray"/>
+        </Style>
+    </UserControl.Resources>
+    
+    <!--START UserControl content-->
+    <Grid>
+        <!--No user grid-->
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="8*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="8*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.Style>
+                <Style TargetType="{x:Type Grid}">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding UserVM.IsUserLoggedIn}" Value="true">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Grid.Style>
+            <Button x:Name="btnBack" Style="{StaticResource BtnBack}" Click="BtnBackDayView_Click">
+                <!--thick left arrow-->
+                <Path Data="M 410.312 454.729 151.767 244.996 410.312 35.271 381.693 0 79.688 244.996 381.693 490 Z" Fill="{Binding Foreground, ElementName=btnBack}" Stretch="Fill" Height="20" Width="10"/>
+            </Button>
+            <TextBlock Grid.Row="1" Grid.Column="1"
+                       FontFamily="Arial" FontSize="32"
+                       HorizontalAlignment="Center" VerticalAlignment="Center">
+                Log in to see your tasks
+            </TextBlock>
+        </Grid>
+        <!--Task items grid-->
+        <Grid>
+            <Grid.Style>
+                <Style TargetType="{x:Type Grid}">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding UserVM.IsUserLoggedIn}" Value="false">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Grid.Style>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="8*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="8*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="btnBackDayView" Style="{StaticResource BtnBack}" Click="BtnBackDayView_Click">
+                <!--thick left arrow-->
+                <Path Data="M 410.312 454.729 151.767 244.996 410.312 35.271 381.693 0 79.688 244.996 381.693 490 Z" Fill="{Binding Foreground, ElementName=btnBackDayView}" Stretch="Fill" Height="20" Width="10"/>
+            </Button>
+
+            <Grid Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <Button x:Name="btnPreviousDay" FontFamily="Arial" FontSize="24" 
+                        HorizontalAlignment="Right" VerticalAlignment="Center"
+                        Background="Transparent" BorderBrush="Transparent" Click="BtnPreviousDay_Click"> 
+                    &lt; 
+                </Button>
+                <!--Date dd/MM/yyyy-->
+                <TextBlock Grid.Column="1" Text="{Binding CurrentDate, StringFormat=dd/MM/yyyy}"
+                   FontFamily="Arial" FontSize="20" Margin="5 0"
+                   HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <Button x:Name="btnNextDay" Grid.Column="2" FontFamily="Arial" FontSize="24" 
+                        HorizontalAlignment="Left" VerticalAlignment="Center"
+                        Background="Transparent" BorderBrush="Transparent" Click="BtnNextDay_Click">
+                    &gt;
+                </Button>
+            </Grid>
+
+
+            <!--Task lists-->
+            <ScrollViewer Grid.Row="1" Grid.Column="1" VerticalScrollBarVisibility="Auto">
+                <Grid >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Margin="0 5">
+                    <StackPanel Orientation="Horizontal" Style="{StaticResource stackPanelTasksHeader}">
+                        <Label Style="{StaticResource lblBadge}" Background="Red" Content="{Binding AmountOfTasksVeryHigh}"></Label>
+                        <Label Style="{StaticResource lblTasksHeader}">Very high</Label>
+                    </StackPanel>
+                    <ItemsControl ItemsSource="{Binding TasksVeryHigh}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <ContentControl Content="{Binding}" ContentTemplate="{StaticResource TaskItem}"></ContentControl>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+
+                <StackPanel Grid.Row="1" Margin="0 5">
+                    <StackPanel Orientation="Horizontal" Style="{StaticResource stackPanelTasksHeader}">
+                        <Label Style="{StaticResource lblBadge}" Background="DarkOrange" Content="{Binding AmountOfTasksHigh}"></Label>
+                        <Label Style="{StaticResource lblTasksHeader}">High</Label>
+                    </StackPanel>
+                    <ItemsControl ItemsSource="{Binding TasksHigh}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <ContentControl Content="{Binding}" ContentTemplate="{StaticResource TaskItem}"></ContentControl>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+
+                <StackPanel Grid.Row="2" Margin="0 5">
+                    <StackPanel Orientation="Horizontal" Style="{StaticResource stackPanelTasksHeader}">
+                        <Label Style="{StaticResource lblBadge}" Background="DarkGray" Content="{Binding AmountOfTasksNormal}"></Label>
+                        <Label Style="{StaticResource lblTasksHeader}">Normal</Label>
+                    </StackPanel>
+                    <ItemsControl ItemsSource="{Binding TasksNormal}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <ContentControl Content="{Binding}" ContentTemplate="{StaticResource TaskItem}"></ContentControl>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+
+                <StackPanel Grid.Row="3" Margin="0 5">
+                    <StackPanel Orientation="Horizontal" Style="{StaticResource stackPanelTasksHeader}">
+                        <Label Style="{StaticResource lblBadge}" Background="LimeGreen" Content="{Binding AmountOfTasksLow}"></Label>
+                        <Label Style="{StaticResource lblTasksHeader}">Low</Label>
+                    </StackPanel>
+                    <ItemsControl ItemsSource="{Binding TasksLow}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <ContentControl Content="{Binding}" ContentTemplate="{StaticResource TaskItem}"></ContentControl>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+               
+            </Grid>
+         </ScrollViewer>
+        </Grid>
+    </Grid>
+</UserControl>

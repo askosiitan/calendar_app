@@ -1,0 +1,134 @@
+﻿<UserControl x:Class="Calendar_Tasks.Views.TabMonthView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Calendar_Tasks.Views"
+             xmlns:mainWindow="clr-namespace:Calendar_Tasks"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <Style x:Key="CalendarHeader" TargetType="{x:Type Label}">
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="FontFamily" Value="Arial"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="Padding" Value="3 10"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Bottom"/>
+            <Setter Property="Background" Value="BlanchedAlmond"/>
+        </Style>
+
+        <DataTemplate x:Key="CalendarDay" DataType="{x:Type mainWindow:DayModel}">
+            <Border BorderThickness="1" BorderBrush="Black">
+                <Grid>
+                    <Button Content="{Binding Day}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" FontFamily="Arial" FontSize="32" Click="BtnCalendarDay_Click">
+                        <Button.Style>
+                            <Style TargetType="{x:Type Button}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsFromCurrentMonth}" Value="False">
+                                        <Setter Property="Foreground" Value="Gray"/>
+                                        <Setter Property="IsHitTestVisible" Value="False"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                    <Border BorderBrush="Red" BorderThickness="0" HorizontalAlignment="Right" VerticalAlignment="Top" CornerRadius="50" Background="Red" Width="25" Height="25" Margin="3">
+                        <TextBlock Text="{Binding AmountOfTasks}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="3"
+                                   FontSize="12" FontFamily="Arial" Foreground="White" FontWeight="Bold">
+                        </TextBlock>
+                        <Border.Style>
+                            <Style TargetType="{x:Type Border}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding AmountOfTasks}" Value="0">
+                                        <Setter Property="Visibility" Value="Hidden"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Style>
+                    </Border>
+                    
+                </Grid>
+            </Border>
+ 
+        </DataTemplate>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="8*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="8*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <Button x:Name="btnBackMonthView" Style="{StaticResource BtnBack}" Click="BtnBackMonthView_Click">
+            <!--thick left arrow-->
+            <Path Data="M 410.312 454.729 151.767 244.996 410.312 35.271 381.693 0 79.688 244.996 381.693 490 Z" Fill="{Binding Foreground, ElementName=btnBackMonthView}" Stretch="Fill" Height="20" Width="10"/>
+        </Button>
+        <Grid Grid.Row="1" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="0.5*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="0.5*"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="btnPreviousMonth" Grid.Column="1" FontFamily="Arial" FontSize="24" Background="Transparent" 
+                    HorizontalAlignment="Right" VerticalAlignment="Center" BorderBrush="Transparent" Click="BtnPreviousMonth_Click"> 
+                &lt; 
+            </Button>
+            <TextBlock Grid.Column="2" FontFamily="Arial" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Run Text="{Binding CurrentMonthName}"> </Run>
+                <Run Text="{Binding CurrentYear}"></Run>
+            </TextBlock>
+            <Button x:Name="btnNextMonth" Grid.Column="3" FontFamily="Arial" FontSize="24" Background="Transparent" 
+                    HorizontalAlignment="Left" VerticalAlignment="Center" BorderBrush="Transparent" Click="BtnNextMonth_Click">
+                &gt;
+            </Button>
+        </Grid>
+        <Grid Grid.Row="2" Grid.Column="1">
+            <Grid.RowDefinitions>
+                
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0" BorderThickness="2 2 1 2" Style="{StaticResource CalendarHeader}">Monday</Label>
+            <Label Grid.Column="1" BorderThickness="1 2 1 2" Style="{StaticResource CalendarHeader}">Tuesday</Label>
+            <Label Grid.Column="2" BorderThickness="1 2 1 2" Style="{StaticResource CalendarHeader}">Wednesday</Label>
+            <Label Grid.Column="3" BorderThickness="1 2 1 2" Style="{StaticResource CalendarHeader}">Thursday</Label>
+            <Label Grid.Column="4" BorderThickness="1 2 1 2" Style="{StaticResource CalendarHeader}">Friday</Label>
+            <Label Grid.Column="5" BorderThickness="1 2 1 2" Style="{StaticResource CalendarHeader}">Saturday</Label>
+            <Label Grid.Column="6" BorderThickness="1 2 2 2" Style="{StaticResource CalendarHeader}" >Sunday</Label>
+            <ItemsControl Background="AliceBlue" x:Name="lstCalendarDays" Grid.Row="1" Grid.RowSpan="5" Grid.ColumnSpan="7" ItemsSource="{Binding Days}" BorderThickness="1 0 1 1" BorderBrush="Black">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid Columns="7"></UniformGrid>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <ContentControl Content="{Binding}" ContentTemplate="{StaticResource CalendarDay}"></ContentControl>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+                
+            </ItemsControl>
+        </Grid>
+    </Grid>
+</UserControl>

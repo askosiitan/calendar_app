@@ -1,0 +1,71 @@
+﻿Monday 15.05	-	7 h	| 7 h
+ - Created Page Switcher
+
+Tuesday 16.05	-	6 h | 13 h
+ - Created DataAccess class
+ - Created Login and register frontend design
+ - User login, logout and register
+ - Created basic TaskModel
+
+Wednesday 17.05	-	6,5 h | 19,5 h
+ - 07:30 - 09:00: Tab year view buttons created
+ - 09:30 - 10:30: Tab year view frontend
+ - 10:00 - 10:30: Created textbox with custom placeholder and clear button
+ - 10:30 - 15:30: Tab month view frontend
+	- 10:30 - 11:00: Basic headers
+	- 11:00 - 11:30: Created skeletons of DayModel, MonthModel and MonthViewModel
+	- 11:30 - 13:45: Basic day layout
+	- 13:45 - 15:30: Created day layout design
+
+Thursday 18.05: PUBLIC HOLIDAY
+ -/-
+
+Friday 19.05
+ - 09:00 - 12:30: Looked at tutorials about MVVM und WPF
+
+Monday 22.05	-	6 h | 25,5 h
+ - 08:15 - 10:10: Programmed navigation between year and month view 
+ - 10:10 - 10:30: Show current month and year in month view
+ - 10:30 - 12:00: Created create new task view
+ - 14:20 - 15:00: Create new task in DB
+ - 15:00 - 15:25: Get task from DB with specific ID
+
+Tuesday 23.05	-	6,5 h | 32 h
+ - 07:35 - 07:50: Get task from DB from specific date
+ - 07:50 - 08:30: Created DayViewModel
+ - 08:30 - 11:10: Created design of TabDayView
+ - 11:10 - 12:20: Attempting to create an expander element with a right aligned arrow, IT CANNAE BE THIS F*CKING HARD, CAN IT?!?!?
+ - 13:20 - 14:00: Worked on dynamic design of TabDayView
+ - 14:00 - 14:10: Scrolling when window size becomes too small
+ - 14:25 - 15:30: Troubleshooting
+
+Wednesday 24.05	-	7 h | 39 h
+ - 07:30 - 16:00: Documentation :(
+
+Thursday 25.05	-	4 h | 43 h
+ - 07:30 - 12:00: Documentation :(
+
+Monday 12.06	-	5,5 h | 48,5 h
+ - 07:30 - 14:30: Documentation :(
+
+Tuesday 13.06	-	6,5 h | 55 h
+ - 07:30 - 15:30: Documentation :(
+
+Wednesday 14.06	-	7 h | 62 h
+ - 07:30 - 16:00: Documentation :(
+
+Thursday 15.06	-	5 h | 67 h
+ - 07:30 - 12:00: Customer documentation
+ - 13:20 - 14:10: Source code documentation
+
+Friday 16.05	-	2,25 h | 69,25 h
+ - 08:00 - 08:30: Source code documentation
+ - 08:30 - 10:15: Implemented task deletion feature
+
+Tuesday 20.05	-	2,75 h | 72 h
+ - 07:45 - 08:35: Implemented task editing feature
+ - 10:00 - 10:45: Added MinuteStart and MinuteEnd to tasks
+ - 10:45 - 11:00: Changed the expander to expand only when the button is clicked, not when the header is clicked
+
+Thursday 22.06	-	1,5 h | 73,5 +- 3 h
+ - 09:30 - 11:00: Amount of tasks on each day shown in the month view for each day

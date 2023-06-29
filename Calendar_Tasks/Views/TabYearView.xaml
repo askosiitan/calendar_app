@@ -1,0 +1,49 @@
+﻿<UserControl x:Class="Calendar_Tasks.Views.TabYearView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Calendar_Tasks.Views"
+             xmlns:userControls="clr-namespace:Calendar_Tasks.UserControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="55" />
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.ColumnSpan="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="5*"/>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="5*"/>
+            </Grid.ColumnDefinitions>
+            <userControls:PlaceholderTextBox x:Name="txtYear" Padding="10" Grid.Column="1" Placeholder="Year" MaxWidth="250"></userControls:PlaceholderTextBox>
+        </Grid>
+        
+        <userControls:ButtonMonth Month="1" Grid.Row="2" Grid.Column="1" Click="BtnMonth_Click" ></userControls:ButtonMonth>
+        <userControls:ButtonMonth Month="2" Grid.Row="2" Grid.Column="2" Click="BtnMonth_Click"></userControls:ButtonMonth>
+        <userControls:ButtonMonth Month="3" Grid.Row="2" Grid.Column="3" Click="BtnMonth_Click"></userControls:ButtonMonth>
+        <userControls:ButtonMonth Month="4" Grid.Row="3" Grid.Column="1" Click="BtnMonth_Click"></userControls:ButtonMonth>
+        <userControls:ButtonMonth Month="5" Grid.Row="3" Grid.Column="2" Click="BtnMonth_Click"></userControls:ButtonMonth>
+        <userControls:ButtonMonth Month="6" Grid.Row="3" Grid.Column="3" Click="BtnMonth_Click"></userControls:ButtonMonth>
+        <userControls:ButtonMonth Month="7" Grid.Row="4" Grid.Column="1" Click="BtnMonth_Click"></userControls:ButtonMonth>
+        <userControls:ButtonMonth Month="8" Grid.Row="4" Grid.Column="2" Click="BtnMonth_Click"></userControls:ButtonMonth>
+        <userControls:ButtonMonth Month="9" Grid.Row="4" Grid.Column="3" Click="BtnMonth_Click"></userControls:ButtonMonth>
+        <userControls:ButtonMonth Month="10" Grid.Row="5" Grid.Column="1" Click="BtnMonth_Click"></userControls:ButtonMonth>
+        <userControls:ButtonMonth Month="11" Grid.Row="5" Grid.Column="2" Click="BtnMonth_Click"></userControls:ButtonMonth>
+        <userControls:ButtonMonth Month="12" Grid.Row="5" Grid.Column="3" Click="BtnMonth_Click"></userControls:ButtonMonth>
+    </Grid>
+</UserControl>
